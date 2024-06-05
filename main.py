@@ -11,6 +11,12 @@ pygame.display.set_caption("Sulay's Tower Defense")
 clock=pygame.time.Clock()
 running = True
 
+class Enemy(sprite):
+    def _init_(self,pos,waypoints,alive):
+        self.pos = (0,0)
+        self.alive = True
+
+
 """ while running == True:
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
