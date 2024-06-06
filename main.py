@@ -1,6 +1,8 @@
 import pygame
 import os       
 from pathlib import Path    
+import constants as c
+
 
 
 money=0
@@ -12,6 +14,9 @@ pygame.display.update()
 pygame.display.set_caption("Sulay's Tower Defense")
 clock=pygame.time.Clock()
 running = True
+waypoints=[(0,50),(65,50),(65*2,50),(65*4,50),(325,600)]
+pygame.draw.line(screen,(255, 255, 255),(0,50),(325,50),20)
+pygame.draw.line(screen, (255,255,255), (325,40), (325,600), width=20)
 #all_enemies = pygame.sprite.GroupSingle()
 gameSprites = pygame.sprite.Group()
 
@@ -27,18 +32,37 @@ class Base(pygame.sprite.Sprite):
         
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self,waypoints):
+        self.waypoints = waypoints
         pygame.sprite.Sprite.__init__(self)
         image = pygame.image.load("C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/sprites/mgMan.png")
-        self.pos = (325,325)
+        self.pos = self.waypoints[0]
         self.image = pygame.transform.scale(image, (60,60))
         self.rect = self.image.get_rect()
         #self.rect.fit(5,5,5,5)
         self.rect.center=self.pos       
         self.alive = True
 
+    def update(self):
+        self.move(self.waypoints)
+
+    def move(self,waypoints):
+        self.rect.x+=1
+
+def makeWaypoints(start,end):
+    endPoint = end
+    curr=start
+    while curr[0] != end[0]:
+        pass
+
+
+
 playerHome = Base(200,(325,600))
-Enemy1 = Enemy()
+Enemy1 = Enemy(waypoints)
+x = Enemy1.pos[0]
+y=Enemy1.pos[1]
+
+
 
 #all_enemies = pygame.sprite.GroupSingle()
 
@@ -46,12 +70,15 @@ Enemy1 = Enemy()
 gameSprites.add(playerHome,Enemy1)
 
 while running == True:
+    clock.tick(1)
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
             key_name = pygame.key.name(event.key)
             if key_name=='tab':
                 print("Tab has been pressed program is stopping")
                 running=False
-    pygame.event.wait(10)           
+
+             
     gameSprites.draw(screen)
+    Enemy1.update()
     pygame.display.flip() 
