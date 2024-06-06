@@ -19,4 +19,5 @@ class Enemy(pygame.sprite.Sprite):
         self.move(self.waypoints)
 
     def move(self,waypoints):
-        self.rect.x+=1
+        count=0
+        self.rect.x=waypoints[count+1][0]

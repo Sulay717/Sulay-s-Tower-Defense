@@ -2,6 +2,7 @@ import pygame
 import os       
 from pathlib import Path    
 import constants as c
+import enemy
 
 
 
@@ -14,7 +15,7 @@ pygame.display.update()
 pygame.display.set_caption("Sulay's Tower Defense")
 clock=pygame.time.Clock()
 running = True
-waypoints=[(0,50),(65,50),(65*2,50),(65*4,50),(325,600)]
+waypoints=[(25,50),(65,50),(65*2,50),(65*4,50),(325,600)]
 pygame.draw.line(screen,(255, 255, 255),(0,50),(325,50),20)
 pygame.draw.line(screen, (255,255,255), (325,40), (325,600), width=20)
 #all_enemies = pygame.sprite.GroupSingle()
@@ -39,7 +40,7 @@ def makeWaypoints(start,end):
 
 
 playerHome = Base(200,(325,600))
-Enemy1 = Enemy(waypoints)
+Enemy1 = enemy.Enemy(waypoints)
 x = Enemy1.pos[0]
 y=Enemy1.pos[1]
 
