@@ -12,26 +12,38 @@ pygame.display.update()
 pygame.display.set_caption("Sulay's Tower Defense")
 clock=pygame.time.Clock()
 running = True
-all_enemies = pygame.sprite.GroupSingle()
+#all_enemies = pygame.sprite.GroupSingle()
+gameSprites = pygame.sprite.Group()
+
+class Base(pygame.sprite.Sprite):
+    def __init__(self,health,pos):
+        pygame.sprite.Sprite.__init__(self)
+        image = pygame.image.load('sprites\Base.png')
+        self.image = pygame.transform.scale(image,(100,100))
+        self.rect = self.image.get_rect()
+        self.rect.center=pos
+        self.health = health
+
+        
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        image = pygame.image.load("C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/sprites/enTest.jpg")
+        image = pygame.image.load("C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/sprites/mgMan.png")
         self.pos = (325,325)
-        print(str(os.getcwd))
-        self.image = pygame.image.load("C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/sprites/enTest.jpg")
-        self.image = pygame.transform.scale(image, (75,75))
+        self.image = pygame.transform.scale(image, (60,60))
         self.rect = self.image.get_rect()
         #self.rect.fit(5,5,5,5)
         self.rect.center=self.pos       
         self.alive = True
 
+playerHome = Base(200,(325,600))
 Enemy1 = Enemy()
 
-all_enemies = pygame.sprite.GroupSingle()
+#all_enemies = pygame.sprite.GroupSingle()
 
-all_enemies.add(Enemy1)
+#all_enemies.add(Enemy1)
+gameSprites.add(playerHome,Enemy1)
 
 while running == True:
     for event in pygame.event.get():
@@ -41,5 +53,5 @@ while running == True:
                 print("Tab has been pressed program is stopping")
                 running=False
     pygame.event.wait(10)           
-    all_enemies.draw(screen)
+    gameSprites.draw(screen)
     pygame.display.flip() 
