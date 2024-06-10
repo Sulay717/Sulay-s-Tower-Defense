@@ -13,6 +13,7 @@ class Enemy(pygame.sprite.Sprite):
         self.target_waypoint = 1
         self.image = pygame.transform.scale(image, (60,60))
         self.rect = self.image.get_rect()
+        self.speed = 2
         #self.rect.fit(5,5,5,5)
         self.rect.center=self.pos       
         self.alive = True
@@ -23,6 +24,5 @@ class Enemy(pygame.sprite.Sprite):
     def move(self,waypoints):
         self.target = Vector2(self.waypoints[self.target_waypoint])
         self.movement = self.target-self.pos
-        self.pos += self.movement.normalize()
+        self.pos += self.movement.normalize() *self.speed
         self.rect.center=self.pos
-        self.rect.x+=1

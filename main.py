@@ -57,7 +57,7 @@ while running == True:
         if event.type==pygame.KEYDOWN:
             key_name = pygame.key.name(event.key)
             if key_name=='tab':
-                print("Tab has been pressed program is stopping")
+                print("Tab has been pressed program is stopping")   
                 running=False
 
              
