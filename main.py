@@ -4,6 +4,7 @@ from pathlib import Path
 import World
 import constants as c
 import enemy
+import json
 
 
 
@@ -36,13 +37,16 @@ def makeWaypoints(start,end):
     while curr[0] != end[0]:
         pass
 
-
+with open('levels/level_1.tmj') as file:
+    world_data = json.load(file)
 
 #playerHome = Base(200,(325,600))
 Enemy1 = enemy.Enemy(waypoints)
-world_map = World.World('C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/levels/level_1.png')
+world_map = World.World(world_data,'C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/levels/level_1.png')
 x = Enemy1.pos[0]
 y=Enemy1.pos[1]
+
+world_map.process_data()
 
 
 
