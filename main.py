@@ -16,15 +16,13 @@ pygame.display.set_caption("Sulay's Tower Defense")
 clock=pygame.time.Clock()
 running = True
 waypoints=[(25,50),(65,50),(65*2,50),(65*4,50),(325,600)]
-pygame.draw.line(screen,(255, 255, 255),(0,50),(325,50),20)
-pygame.draw.line(screen, (255,255,255), (325,40), (325,600), width=20)
 #all_enemies = pygame.sprite.GroupSingle()
 gameSprites = pygame.sprite.Group()
 
 class Base(pygame.sprite.Sprite):
     def __init__(self,health,pos):
         pygame.sprite.Sprite.__init__(self)
-        image = pygame.image.load('sprites\Base.png')
+        image = pygame.image.load('sprites/Base.png').convert_alpha()
         self.image = pygame.transform.scale(image,(100,100))
         self.rect = self.image.get_rect()
         self.rect.center=pos
@@ -52,7 +50,7 @@ y=Enemy1.pos[1]
 gameSprites.add(playerHome,Enemy1)
 
 while running == True:
-    clock.tick(1)
+    clock.tick(60)
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
             key_name = pygame.key.name(event.key)
@@ -60,7 +58,15 @@ while running == True:
                 print("Tab has been pressed program is stopping")   
                 running=False
 
+    screen.fill((210,180,140))
+
+    pygame.draw.line(screen,(255, 255, 255),(0,50),(325,50),20)
+    pygame.draw.line(screen, (255,255,255), (325,40), (325,600), width=20)
              
     gameSprites.draw(screen)
     Enemy1.update()
     pygame.display.flip() 
+
+
+
+pygame.quit()
