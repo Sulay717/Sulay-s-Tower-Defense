@@ -1,6 +1,7 @@
 import pygame
 import os       
 from pathlib import Path    
+import World
 import constants as c
 import enemy
 
@@ -9,7 +10,7 @@ import enemy
 money=0
 spriteFolder = Path('Sprites')
 pygame.init()
-screen = pygame.display.set_mode((650,650))
+screen = pygame.display.set_mode((c.height,c.width))
 pygame.Surface.fill(screen,(210,180,140))
 pygame.display.update()
 pygame.display.set_caption("Sulay's Tower Defense")
@@ -37,8 +38,9 @@ def makeWaypoints(start,end):
 
 
 
-playerHome = Base(200,(325,600))
+#playerHome = Base(200,(325,600))
 Enemy1 = enemy.Enemy(waypoints)
+world_map = World.World('C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/levels/level_1.png')
 x = Enemy1.pos[0]
 y=Enemy1.pos[1]
 
@@ -47,10 +49,10 @@ y=Enemy1.pos[1]
 #all_enemies = pygame.sprite.GroupSingle()
 
 #all_enemies.add(Enemy1)
-gameSprites.add(playerHome,Enemy1)
+gameSprites.add(Enemy1)
 
 while running == True:
-    clock.tick(60)
+    clock.tick(c.FPS)
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
             key_name = pygame.key.name(event.key)
@@ -62,7 +64,8 @@ while running == True:
 
     pygame.draw.line(screen,(255, 255, 255),(0,50),(325,50),20)
     pygame.draw.line(screen, (255,255,255), (325,40), (325,600), width=20)
-             
+    
+    world_map.draw(screen)
     gameSprites.draw(screen)
     Enemy1.update()
     pygame.display.flip() 
