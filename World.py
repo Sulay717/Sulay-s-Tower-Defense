@@ -11,21 +11,19 @@ class World(pygame.sprite.Sprite):
         
 
     def process_data(self):
-        for row in self.data:
-            if row == 'layers':
-                print('found row')
-                for layer in self.data[row]:
-                    #print(layer)
-                    if layer['name']=='waypoints':
-                        print('found objects')
-                        self.process_coords(layer)
+        for layer in self.data['layers']:
+            if layer['name']=='waypoints':
+                for obj in layer['objects']:
+                    waypoint_data=obj['polyline']
+                    self.process_coords(waypoint_data)
+                        
 
-    def process_coords(self,layer):
-        for objects in layer['objects']:
-            for coords in objects['polyline']:
-                #print("x="+str(coords['x'])+'y'+str(coords['y']))
-                self.waypoints.append((coords['x'],coords['y']))
-                print(self.waypoints)
+    def process_coords(self,data):
+        for point in data:
+            #print("x="+str(coords['x'])+'y'+str(coords['y']))
+            print((point.get('x'),point.get('y')))
+            self.waypoints.append((point.get('x'),point.get('y')))
+            #print(self.waypoints)
 
     def draw(self,surface):
         surface.blit(self.image,(0,0))

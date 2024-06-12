@@ -27,7 +27,6 @@ class Enemy(pygame.sprite.Sprite):
         if self.target_waypoint < len(self.waypoints):
             self.target = Vector2(self.waypoints[self.target_waypoint])
             self.movement = self.target-self.pos
-
         else:
             self.kill()
 
