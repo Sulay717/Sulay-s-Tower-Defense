@@ -2,7 +2,7 @@ import pygame
 
 class Menu():
     def __init__(self,image):
-        o_image = pygame.image.load(image).convert_alpha()
+        o_image = image
         self.image = pygame.transform.scale(o_image,(5,5))
         
     def draw(self,surface):

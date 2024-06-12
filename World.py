@@ -3,9 +3,10 @@ import pygame
 class World():
 
     def __init__(self,data,world_image):
-        self.image = pygame.image.load(world_image).convert_alpha()
+        self.image = world_image
         self.data = data
         self.waypoints=[]
+        self.tilemap=[]
         
     #iterates through the level.tmj to find the polyline which contains the coordinates for the waypoint
     def process_data(self):
@@ -14,6 +15,9 @@ class World():
                 for obj in layer['objects']:
                     waypoint_data=obj['polyline']
                     self.process_coords(waypoint_data)
+            elif layer['name']=='tilemap':
+                self.tilemap=layer['data']
+                
                         
     #takes in the polyline table and iterates through, creates (x,y) sets and appends it to the waypoints table.
     def process_coords(self,data):

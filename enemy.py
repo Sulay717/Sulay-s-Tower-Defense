@@ -9,7 +9,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self,waypoints,image):
         self.waypoints = waypoints
         pygame.sprite.Sprite.__init__(self)
-        self.origin_image = pygame.image.load(image).convert_alpha()
+        self.origin_image = image
         self.pos = Vector2(self.waypoints[0])
         self.target_waypoint = 1
         self.angle = 0
