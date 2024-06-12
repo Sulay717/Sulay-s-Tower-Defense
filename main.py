@@ -30,18 +30,13 @@ class Base(pygame.sprite.Sprite):
         self.health = health
 
 
-def makeWaypoints(start,end):
-    endPoint = end
-    curr=start
-    while curr[0] != end[0]:
-        pass
-
 with open('levels/level.tmj') as file:
     world_data = json.load(file)
 
 #playerHome = Base(200,(325,600))
 world_map = World.World(world_data,'C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/levels/level.png')
 world_map.process_data()
+
 Enemy = enemy.Enemy(world_map.waypoints)
 
 
