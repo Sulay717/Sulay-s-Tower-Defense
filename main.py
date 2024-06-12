@@ -11,7 +11,7 @@ import json
 money=0
 spriteFolder = Path('Sprites')
 pygame.init()
-screen = pygame.display.set_mode((c.height,c.width))
+screen = pygame.display.set_mode((c.SCREEN_HEIGHT,c.SCREEN_WIDTH))
 pygame.Surface.fill(screen,(210,180,140))
 pygame.display.update()
 pygame.display.set_caption("Sulay's Tower Defense")
@@ -40,7 +40,7 @@ world_map.process_data()
 Enemy = enemy.Enemy(world_map.waypoints)
 
 
-world_map.process_data()
+print(world_map.waypoints)
 
 
 
@@ -49,8 +49,12 @@ world_map.process_data()
 #all_enemies.add(Enemy1)
 enemy_sprites.add(Enemy)
 
+
 while running == True:
     clock.tick(c.FPS)
+    screen.fill((210,180,140))
+    world_map.draw(screen)
+
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
             key_name = pygame.key.name(event.key)
@@ -58,8 +62,6 @@ while running == True:
                 print("Tab has been pressed program is stopping")   
                 running=False
 
-    screen.fill((210,180,140))
-    world_map.draw(screen)
 
     pygame.draw.lines(screen, "grey0", False, world_map.waypoints, width=1)
     

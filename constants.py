@@ -1,6 +1,6 @@
-tile_Height=15
-tile_Width = 15
-pixels = 48
-height=tile_Height*pixels
-width=tile_Width*pixels
-FPS=60
+ROWS = 15
+COLS = 15
+TILE_SIZE = 48
+SCREEN_WIDTH = TILE_SIZE * COLS
+SCREEN_HEIGHT = TILE_SIZE * ROWS
+FPS = 60
