@@ -6,10 +6,10 @@ from pygame.math import Vector2
 import math
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self,waypoints):
+    def __init__(self,waypoints,image):
         self.waypoints = waypoints
         pygame.sprite.Sprite.__init__(self)
-        self.origin_image = pygame.image.load("C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/sprites/enemy_1.png").convert_alpha()
+        self.origin_image = pygame.image.load(image).convert_alpha()
         self.pos = Vector2(self.waypoints[0])
         self.target_waypoint = 1
         self.angle = 0
@@ -18,6 +18,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center=self.pos       
 
+    #updates enemy position and rotates it accordingly
     def update(self):
         self.move(self.waypoints)
         self.rotate()

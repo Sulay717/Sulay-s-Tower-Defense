@@ -7,7 +7,7 @@ class World():
         self.data = data
         self.waypoints=[]
         
-
+    #iterates through the level.tmj to find the polyline which contains the coordinates for the waypoint
     def process_data(self):
         for layer in self.data['layers']:
             if layer['name']=='waypoints':
@@ -15,14 +15,13 @@ class World():
                     waypoint_data=obj['polyline']
                     self.process_coords(waypoint_data)
                         
-
+    #takes in the polyline table and iterates through, creates (x,y) sets and appends it to the waypoints table.
     def process_coords(self,data):
         for point in data:
-            #print("x="+str(coords['x'])+'y'+str(coords['y']))
             temp_x = point.get('x')
             temp_y= point.get('y')
             self.waypoints.append((temp_x,temp_y))
-            #print(self.waypoints)
 
+    #draws the world map
     def draw(self,surface):
         surface.blit(self.image,(0,0))

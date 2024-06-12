@@ -3,11 +3,13 @@ import os
 from pathlib import Path    
 import World
 import constants as c
+from menu import Menu
+from turret import Turret
 import enemy
 import json
 
 
-
+#core game features that need to be initationed 
 money=0
 spriteFolder = Path('Sprites')
 pygame.init()
@@ -17,8 +19,17 @@ pygame.display.update()
 pygame.display.set_caption("Sulay's Tower Defense")
 clock=pygame.time.Clock()
 running = True
-#all_enemies = pygame.sprite.GroupSingle()
+
+#create groups
 enemy_sprites = pygame.sprite.Group()
+
+#load images
+enemy_image = open('sprites/enemy_1.png')
+world_image = open('levels/level.png')
+menu_image=open('assets/menu.png')
+
+
+
 
 class Base(pygame.sprite.Sprite):
     def __init__(self,health,pos):
@@ -29,18 +40,20 @@ class Base(pygame.sprite.Sprite):
         self.rect.center=pos
         self.health = health
 
-
+#open the level data map and grab waypoint file
 with open('levels/level.tmj') as file:
     world_data = json.load(file)
 
-#playerHome = Base(200,(325,600))
-world_map = World.World(world_data,'C:/Users/sbah/Sulay_TD/Sulay-s-Tower-Defense/levels/level.png')
-world_map.process_data()
+#create world map and process data
+map = World.World(world_data,world_image)
+map.process_data()
+menu = Menu(menu_image)
 
-Enemy = enemy.Enemy(world_map.waypoints)
 
 
-print(world_map.waypoints)
+#creating enemy
+Enemy = enemy.Enemy(map.waypoints,enemy_image)
+
 
 
 
@@ -49,11 +62,18 @@ print(world_map.waypoints)
 #all_enemies.add(Enemy1)
 enemy_sprites.add(Enemy)
 
-
+#game loop
 while running == True:
+    #Core game functions, FPS, screen filling and drawing the map.
     clock.tick(c.FPS)
     screen.fill((210,180,140))
-    world_map.draw(screen)
+    map.draw(screen)
+
+    
+    enemy_sprites.update()      
+    enemy_sprites.draw(screen)
+
+    pygame.display.flip() 
 
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
@@ -61,14 +81,6 @@ while running == True:
             if key_name=='tab':
                 print("Tab has been pressed program is stopping")   
                 running=False
-
-
-    pygame.draw.lines(screen, "grey0", False, world_map.waypoints, width=1)
-    
-    enemy_sprites.update()      
-    enemy_sprites.draw(screen)
-
-    pygame.display.flip() 
 
 
 
