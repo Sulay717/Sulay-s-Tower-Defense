@@ -97,8 +97,10 @@ while running == True:
     enemy_group.draw(screen)
     turret_group.update()
     turret_group.draw(screen)
+    menu.draw(screen    )
 
     pygame.display.flip() 
+
 
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
@@ -106,6 +108,11 @@ while running == True:
             if key_name=='tab':
                 print("Tab has been pressed program is stopping")   
                 running=False
+
+            if key_name=='m':
+                print('activating menu')
+                menu.active = not menu.active
+                menu.draw(screen)
 
         if event.type==pygame.MOUSEBUTTONDOWN:
             #print("Mouse button 1")
